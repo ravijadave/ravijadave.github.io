@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ravija Dave — ECE & Advocacy Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET & BASE ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  color: #1C1C1C;
+  background: #FAFAF6;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── CSS VARIABLES ───────────────────────────────────────────────────── */
+:root {
+  --teal:        #1A6B6B;
+  --teal-mid:    #25898A;
+  --teal-pale:   #EBF5F5;
+  --teal-border: #B5D8D8;
+  --sand:        #F6EDD8;
+  --sand-dark:   #E9D9B5;
+  --cream:       #FAFAF6;
+  --dark:        #1C1C1C;
+  --gray:        #4A4A4A;
+  --gray-mid:    #777;
+  --gray-lite:   #ccc;
+  --white:       #FFFFFF;
+  --nav-h:       68px;
+  --max-w:       1080px;
+  --section-pad: 96px 24px;
+}
+
+/* ── NAV ─────────────────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  background: rgba(250,250,246,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gray-lite);
+  display: flex; align-items: center;
+  padding: 0 40px;
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.07); }
+.nav-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem; font-weight: 600;
+  color: var(--teal); letter-spacing: 0.04em;
+  text-decoration: none; flex-shrink: 0;
+}
+.nav-links {
+  display: flex; gap: 32px; margin-left: auto;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase; text-decoration: none;
+  color: var(--gray); transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--teal); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; margin-left: auto; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--dark); transition: 0.3s; }
+.mobile-menu {
+  display: none; position: fixed; inset: var(--nav-h) 0 0 0;
+  background: var(--cream); z-index: 99; flex-direction: column;
+  padding: 40px; gap: 28px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-size: 1.1rem; font-weight: 500; color: var(--dark);
+  text-decoration: none; border-bottom: 1px solid var(--gray-lite); padding-bottom: 14px;
+}
+
+/* ── HERO ─────────────────────────────────────────────────────────────── */
+#home {
+  min-height: 100vh;
+  background: var(--teal);
+  display: flex; align-items: center;
+  padding: 0 40px;
+  position: relative; overflow: hidden;
+}
+.hero-bg-text {
+  position: absolute; right: -40px; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(180px, 20vw, 280px);
+  font-weight: 700; color: rgba(255,255,255,0.04);
+  user-select: none; pointer-events: none;
+  white-space: nowrap; line-height: 1;
+}
+.hero-inner {
+  max-width: var(--max-w); margin: 0 auto; width: 100%;
+  padding-top: var(--nav-h);
+  display: flex; flex-direction: column; gap: 28px;
+}
+.hero-label {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(255,255,255,0.55);
+}
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(56px, 9vw, 104px);
+  font-weight: 600; color: #fff;
+  line-height: 0.95; letter-spacing: -0.02em;
+}
+.hero-tagline {
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  color: rgba(255,255,255,0.78);
+  font-weight: 300; max-width: 560px;
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  line-height: 1.5;
+}
+.hero-meta {
+  font-size: 0.82rem; letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+}
+.hero-meta span { margin: 0 10px; opacity: 0.4; }
+.hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px; border-radius: 4px;
+  font-size: 0.8rem; font-weight: 500; letter-spacing: 0.07em;
+  text-transform: uppercase; text-decoration: none;
+  transition: all 0.2s; cursor: pointer; border: none;
+}
+.btn-light {
+  background: #fff; color: var(--teal);
+}
+.btn-light:hover { background: var(--sand); }
+.btn-outline {
+  background: transparent; color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.4);
+}
+.btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+.hero-scroll {
+  position: absolute; bottom: 36px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: rgba(255,255,255,0.3); font-size: 0.68rem; letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.hero-scroll::after {
+  content: ''; display: block; width: 1px; height: 40px;
+  background: rgba(255,255,255,0.2);
+  animation: scrollLine 1.6s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%, 100% { opacity: 0.2; transform: scaleY(1); }
+  50% { opacity: 0.6; transform: scaleY(0.6); }
+}
+
+/* ── SECTIONS ─────────────────────────────────────────────────────────── */
+section { padding: var(--section-pad); }
+.section-inner { max-width: var(--max-w); margin: 0 auto; }
+.section-label {
+  font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--teal); font-weight: 500; margin-bottom: 14px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 600; line-height: 1.1;
+  color: var(--dark); margin-bottom: 36px;
+}
+.section-title em { color: var(--teal); font-style: italic; }
+.section-divider {
+  width: 48px; height: 3px; background: var(--teal);
+  margin-bottom: 40px; border-radius: 2px;
+}
+
+/* alternating backgrounds */
+.bg-white { background: var(--white); }
+.bg-cream { background: var(--cream); }
+.bg-sand  { background: var(--sand); }
+.bg-teal-pale { background: var(--teal-pale); }
+
+/* ── ABOUT ─────────────────────────────────────────────────────────────── */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; align-items: start;
+}
+.about-sidebar {}
+.about-avatar-placeholder {
+  width: 100%; aspect-ratio: 3/4; max-width: 300px;
+  background: var(--teal-pale);
+  border: 2px solid var(--teal-border);
+  border-radius: 4px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 12px;
+  color: var(--teal); font-size: 0.75rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.about-avatar-placeholder .icon { font-size: 3rem; opacity: 0.4; }
+.about-quickfacts { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+.fact-item {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 12px 16px;
+  background: var(--teal-pale); border-left: 3px solid var(--teal);
+}
+.fact-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--teal); font-weight: 500; }
+.fact-val { font-size: 0.88rem; color: var(--dark); font-weight: 400; }
+.about-body p { color: var(--gray); margin-bottom: 20px; line-height: 1.8; font-size: 0.97rem; }
+.about-body p:last-child { margin-bottom: 0; }
+.philosophy-block {
+  margin-top: 48px; padding: 32px 36px;
+  background: var(--teal); border-radius: 4px;
+}
+.philosophy-block h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; color: rgba(255,255,255,0.7);
+  font-weight: 400; margin-bottom: 14px; letter-spacing: 0.04em;
+}
+.philosophy-block p { color: rgba(255,255,255,0.85); font-size: 0.93rem; line-height: 1.8; margin-bottom: 14px; }
+.philosophy-block p:last-child { margin-bottom: 0; }
+.values-strip {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; margin-top: 64px;
+}
+.value-card {
+  padding: 28px 24px; background: var(--white);
+  border-top: 3px solid var(--teal); border-radius: 2px;
+}
+.value-icon { font-size: 1.6rem; margin-bottom: 12px; }
+.value-title { font-weight: 600; font-size: 0.9rem; color: var(--dark); margin-bottom: 8px; letter-spacing: 0.02em; }
+.value-desc { font-size: 0.83rem; color: var(--gray-mid); line-height: 1.7; }
+
+/* ── CARDS ────────────────────────────────────────────────────────────── */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+.card {
+  background: var(--white); border-radius: 4px;
+  border: 1px solid #E8E8E0; overflow: hidden;
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.card:hover { box-shadow: 0 12px 40px rgba(26,107,107,0.12); transform: translateY(-3px); }
+.card-top { padding: 28px 28px 0; }
+.card-tag {
+  display: inline-block; padding: 4px 10px;
+  background: var(--teal-pale); color: var(--teal);
+  font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+  border-radius: 2px; margin-bottom: 14px; font-weight: 500;
+}
+.card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; color: var(--dark); margin-bottom: 10px; line-height: 1.3; }
+.card-org { font-size: 0.78rem; color: var(--teal); font-weight: 500; letter-spacing: 0.05em; margin-bottom: 16px; }
+.card-body { padding: 0 28px 28px; }
+.card-body p { font-size: 0.88rem; color: var(--gray); line-height: 1.8; margin-bottom: 12px; }
+.card-body p:last-child { margin-bottom: 0; }
+.card-artifact {
+  padding: 14px 28px; background: var(--sand);
+  border-top: 1px solid var(--sand-dark);
+  font-size: 0.75rem; color: var(--gray); display: flex; align-items: center; gap: 8px;
+}
+.card-artifact .pin { font-size: 0.9rem; }
+
+/* ── PULL QUOTE ──────────────────────────────────────────────────────── */
+.pull-quote {
+  margin: 56px 0;
+  padding: 40px 48px;
+  border-left: 5px solid var(--teal);
+  background: var(--teal-pale);
+}
+.pull-quote blockquote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+  font-style: italic; font-weight: 600;
+  color: var(--teal); line-height: 1.5;
+}
+
+/* ── POLICY ──────────────────────────────────────────────────────────── */
+.policy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.policy-block {
+  padding: 32px; background: var(--white);
+  border-radius: 4px; border: 1px solid #E8E8E0;
+}
+.policy-block h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 600; color: var(--dark);
+  margin-bottom: 8px;
+}
+.policy-block .policy-sub { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--teal); margin-bottom: 18px; font-weight: 500; }
+.policy-block p { font-size: 0.86rem; color: var(--gray); line-height: 1.8; margin-bottom: 12px; }
+.policy-block p:last-child { margin-bottom: 0; }
+
+.advocacy-actions { display: flex; flex-direction: column; gap: 16px; margin-top: 40px; }
+.action-item {
+  display: flex; gap: 20px; align-items: flex-start;
+  padding: 20px 24px; background: var(--white);
+  border-radius: 4px; border: 1px solid #E8E8E0;
+}
+.action-num {
+  flex-shrink: 0; width: 36px; height: 36px;
+  background: var(--teal); color: #fff;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 600;
+}
+.action-text strong { display: block; font-size: 0.88rem; color: var(--dark); margin-bottom: 4px; }
+.action-text p { font-size: 0.83rem; color: var(--gray-mid); line-height: 1.7; }
+
+/* ── COMMS ───────────────────────────────────────────────────────────── */
+.comms-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+.comms-card {
+  padding: 32px; background: var(--white);
+  border-radius: 4px; border: 1px solid #E8E8E0;
+  transition: border-color 0.2s;
+}
+.comms-card:hover { border-color: var(--teal-border); }
+.comms-icon { font-size: 2rem; margin-bottom: 16px; }
+.comms-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
+.comms-card .sub { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--teal); margin-bottom: 16px; font-weight: 500; }
+.comms-card p { font-size: 0.86rem; color: var(--gray); line-height: 1.8; margin-bottom: 10px; }
+.comms-card p:last-child { margin-bottom: 0; }
+.building-badge {
+  display: inline-block; padding: 3px 9px;
+  background: var(--sand); color: var(--gray);
+  font-size: 0.65rem; letter-spacing: 0.1em;
+  text-transform: uppercase; border-radius: 20px; margin-top: 10px;
+}
+
+/* ── EQUITY ──────────────────────────────────────────────────────────── */
+.equity-intro { max-width: 680px; margin-bottom: 56px; }
+.equity-intro p { font-size: 1rem; color: var(--gray); line-height: 1.85; margin-bottom: 18px; }
+.framework-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 56px; }
+.framework-item {
+  padding: 24px; background: var(--white); border-radius: 4px;
+  border-top: 3px solid var(--teal);
+}
+.framework-item h4 { font-size: 0.88rem; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+.framework-item p { font-size: 0.82rem; color: var(--gray-mid); line-height: 1.7; }
+.practice-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 48px; }
+.practice-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 18px 22px; background: var(--white);
+  border-radius: 4px; border-left: 3px solid var(--teal-border);
+}
+.practice-dot { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+.practice-item p { font-size: 0.86rem; color: var(--gray); line-height: 1.75; }
+.training-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+.pill {
+  padding: 7px 16px; background: var(--teal-pale);
+  border: 1px solid var(--teal-border); color: var(--teal);
+  border-radius: 20px; font-size: 0.78rem; font-weight: 500;
+}
+
+/* ── CONTACT ─────────────────────────────────────────────────────────── */
+#contact {
+  background: var(--teal); padding: var(--section-pad);
+}
+#contact .section-title { color: #fff; }
+#contact .section-label { color: rgba(255,255,255,0.55); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.contact-text p { color: rgba(255,255,255,0.75); font-size: 1rem; line-height: 1.8; margin-bottom: 28px; }
+.contact-links { display: flex; flex-direction: column; gap: 14px; }
+.contact-link {
+  display: flex; align-items: center; gap: 14px;
+  color: rgba(255,255,255,0.85); text-decoration: none;
+  font-size: 0.9rem; transition: color 0.2s;
+}
+.contact-link:hover { color: #fff; }
+.contact-link .icon { font-size: 1.1rem; opacity: 0.7; }
+.contact-form { display: flex; flex-direction: column; gap: 14px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px; color: #fff;
+  font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+  outline: none; transition: border-color 0.2s;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder { color: rgba(255,255,255,0.4); }
+.contact-form input:focus,
+.contact-form textarea:focus { border-color: rgba(255,255,255,0.6); }
+.contact-form textarea { resize: vertical; min-height: 120px; }
+.btn-send {
+  background: #fff; color: var(--teal);
+  padding: 13px 32px; border: none; border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; cursor: pointer;
+  transition: background 0.2s; align-self: flex-start;
+}
+.btn-send:hover { background: var(--sand); }
+.form-success {
+  display: none; padding: 16px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 4px; color: #fff;
+  font-size: 0.88rem; text-align: center;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────────────────── */
+footer {
+  background: #111; color: rgba(255,255,255,0.4);
+  padding: 28px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.75rem; letter-spacing: 0.06em;
+}
+footer strong { color: rgba(255,255,255,0.7); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: #fff; }
+
+/* ── ANIMATIONS ──────────────────────────────────────────────────────── */
+.fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up-delay-1 { transition-delay: 0.1s; }
+.fade-up-delay-2 { transition-delay: 0.2s; }
+.fade-up-delay-3 { transition-delay: 0.3s; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  :root { --section-pad: 72px 20px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-avatar-placeholder { max-width: 200px; aspect-ratio: 1; }
+  .values-strip { grid-template-columns: 1fr; }
+  .policy-grid { grid-template-columns: 1fr; }
+  .comms-grid { grid-template-columns: 1fr; }
+  .framework-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 12px; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+  nav { padding: 0 20px; }
+  #home { padding: 0 24px; }
+  .pull-quote { padding: 28px 28px; }
+}
+@media (max-width: 540px) {
+  .hero-ctas { flex-direction: column; }
+  .cards-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ───────────────────────────────────────────────────────────────── -->
+<nav id="navbar">
+  <a class="nav-name" href="#home">Ravija Dave</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="#policy">Policy</a></li>
+    <li><a href="#communications">Communications</a></li>
+    <li><a href="#equity">Equity</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about"          onclick="closeMobileMenu()">About</a>
+  <a href="#community"      onclick="closeMobileMenu()">Community & Membership</a>
+  <a href="#policy"         onclick="closeMobileMenu()">Policy & Advocacy</a>
+  <a href="#communications" onclick="closeMobileMenu()">Communications</a>
+  <a href="#equity"         onclick="closeMobileMenu()">Equity & Anti-Oppression</a>
+  <a href="#contact"        onclick="closeMobileMenu()">Contact</a>
+</div>
+
+<!-- ── HERO ───────────────────────────────────────────────────────────────── -->
+<section id="home">
+  <div class="hero-bg-text">RECE</div>
+  <div class="hero-inner">
+    <p class="hero-label">Early Childhood Educator &amp; Advocate · Toronto, ON</p>
+    <h1 class="hero-name">Ravija<br/>Dave</h1>
+    <p class="hero-tagline">"Amplifying educator voices.<br/>Advancing equitable childcare."</p>
+    <p class="hero-meta">
+      RECE <span>·</span> Community Advocate <span>·</span> Policy Communicator
+    </p>
+    <div class="hero-ctas">
+      <a href="#community" class="btn btn-light">View My Work</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ── ABOUT ──────────────────────────────────────────────────────────────── -->
+<section id="about" class="bg-white">
+  <div class="section-inner">
+    <p class="section-label fade-up">About Me</p>
+    <div class="about-grid">
+      <div class="about-sidebar fade-up fade-up-delay-1">
+        <div class="about-avatar-placeholder">
+          <div class="icon">👤</div>
+          <span>Add your photo here</span>
+        </div>
+        <div class="about-quickfacts">
+          <div class="fact-item">
+            <span class="fact-label">Credential</span>
+            <span class="fact-val">Registered Early Childhood Educator (RECE)</span>
+          </div>
+          <div class="fact-item">
+            <span class="fact-label">Current Role</span>
+            <span class="fact-val">RECE, St. Mark's Daycare</span>
+          </div>
+          <div class="fact-item">
+            <span class="fact-label">Location</span>
+            <span class="fact-val">Toronto, ON</span>
+          </div>
+          <div class="fact-item">
+            <span class="fact-label">Training</span>
+            <span class="fact-val">Anti-Racism · Trauma-Informed Practice</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-body fade-up fade-up-delay-2">
+        <h2 class="section-title">I believe <em>every educator's<br/>voice matters.</em></h2>
+        <div class="section-divider"></div>
+        <p>I'm a Registered Early Childhood Educator based in Toronto, currently working at St. Mark's Daycare where I support a diverse group of toddlers and their families every day. I came to ECE through a background in psychology — and that combination has shaped how I think about children, communities, and systems.</p>
+        <p>Over the past two years, I've worked across multiple Toronto childcare centres, building relationships with families from newcomer, racialized, and multilingual communities. I've learned that the work of early childhood education is inseparable from advocacy: the conditions educators work in, the policies that govern our sector, and the voices that get heard in those policy conversations all shape what's possible in any classroom.</p>
+        <p>That's why I'm drawn to work that bridges direct practice and systemic change. I want to use what I know from the ground — from documentation, family conversations, curriculum, and care — to inform policy, amplify educator voices, and build the kind of sector-wide community that makes change possible.</p>
+        <div class="philosophy-block">
+          <h3>Teaching &amp; Advocacy Philosophy</h3>
+          <p>My practice is grounded in Ontario's pedagogical frameworks — How Does Learning Happen?, ELECT, and the AQI standards — and shaped by a deep commitment to equity, cultural responsiveness, and anti-oppressive approaches.</p>
+          <p>Philosophy without action is incomplete. I attend rallies. I write to ministers. I stay current on policy. These aren't extras — they're part of the job.</p>
+        </div>
+      </div>
+    </div>
+    <div class="values-strip">
+      <div class="value-card fade-up">
+        <div class="value-icon">🤝</div>
+        <div class="value-title">Community First</div>
+        <div class="value-desc">Every family I work with has taught me something. I build relationships before I build programs.</div>
+      </div>
+      <div class="value-card fade-up fade-up-delay-1">
+        <div class="value-icon">⚖️</div>
+        <div class="value-title">Equity in Action</div>
+        <div class="value-desc">Anti-racist, trauma-informed, and culturally responsive practice isn't a framework I apply — it's how I show up.</div>
+      </div>
+      <div class="value-card fade-up fade-up-delay-2">
+        <div class="value-icon">📣</div>
+        <div class="value-title">Voice &amp; Advocacy</div>
+        <div class="value-desc">Educators deserve to be heard. I'm committed to making that happen at every level.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMMUNITY & MEMBERSHIP ─────────────────────────────────────────────── -->
+<section id="community" class="bg-cream">
+  <div class="section-inner">
+    <p class="section-label fade-up">Community &amp; Membership Engagement</p>
+    <h2 class="section-title fade-up">Where relationships<br/>become <em>community.</em></h2>
+    <div class="section-divider fade-up"></div>
+    <p class="fade-up" style="max-width:680px; color:var(--gray); line-height:1.85; margin-bottom:56px; font-size:0.97rem;">
+      Membership engagement is, at its core, about trust — making people feel seen, valued, and connected to something larger than themselves. That's also exactly what good early childhood education looks like. The skills are the same: listening well, communicating clearly, meeting people where they are, and building relationships that last.
+    </p>
+    <div class="cards-grid">
+      <div class="card fade-up">
+        <div class="card-top">
+          <span class="card-tag">Community Event</span>
+          <div class="card-title">Squishy Bag Sensory Day</div>
+          <div class="card-org">CNH–Winchester Day Care Centre · 2023</div>
+        </div>
+        <div class="card-body">
+          <p>I co-designed and facilitated a community engagement event for families of children with sensory processing and fine motor challenges — coordinating logistics across families, staff, and the centre's leadership team.</p>
+          <p>I designed educational posters and a newsletter-style handout using Canva, translating developmental concepts into language parents could use at home. On the day, I facilitated the session, introduced activities, and created space for families to ask questions and connect with each other.</p>
+          <p>Several parents told me it was the first time they'd felt genuinely included in their child's learning process.</p>
+        </div>
+        <div class="card-artifact">
+          <span class="pin">📎</span> Artifact: Canva poster + parent handout from event
+        </div>
+      </div>
+      <div class="card fade-up fade-up-delay-1">
+        <div class="card-top">
+          <span class="card-tag">Daily Outreach</span>
+          <div class="card-title">Family Engagement Practice</div>
+          <div class="card-org">St. Mark's Daycare &amp; Wee Leprechauns · 2024–2025</div>
+        </div>
+        <div class="card-body">
+          <p>A significant part of my daily work involves intentional family outreach — particularly with newcomer families, racialized caregivers, and multilingual households who often face barriers to participation in their child's care setting.</p>
+          <p>I build relationships through consistent, warm communication: sharing observations at pickup, translating program information into accessible formats, involving families in curriculum planning, and making sure every caregiver feels respected — not just tolerated.</p>
+          <p>This has resulted in stronger family participation, higher trust, and children who arrive feeling settled and supported.</p>
+        </div>
+        <div class="card-artifact">
+          <span class="pin">📎</span> Artifact: Sample family newsletter (names redacted)
+        </div>
+      </div>
+      <div class="card fade-up fade-up-delay-2">
+        <div class="card-top">
+          <span class="card-tag">People Leadership</span>
+          <div class="card-title">Team Coordination &amp; Mentorship</div>
+          <div class="card-org">Canada Post · 2022–2023</div>
+        </div>
+        <div class="card-body">
+          <p>While completing my ECE diploma full-time, I recruited, trained, and mentored three team members from scratch — managing onboarding, scheduling, performance feedback, and day-to-day coordination.</p>
+          <p>This gave me a practical foundation in the skills that membership outreach requires: bringing people in, keeping them engaged, and supporting them in contributing meaningfully.</p>
+        </div>
+        <div class="card-artifact">
+          <span class="pin">📎</span> Transferable skill: member recruitment &amp; network coordination
+        </div>
+      </div>
+    </div>
+    <div class="pull-quote fade-up">
+      <blockquote>"I don't wait for families to come to me. I meet them where they are — at the door, in the community, in their language, and on their terms. That's what real engagement looks like."</blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ── POLICY & ADVOCACY ───────────────────────────────────────────────────── -->
+<section id="policy" class="bg-white">
+  <div class="section-inner">
+    <p class="section-label fade-up">Policy &amp; Advocacy</p>
+    <h2 class="section-title fade-up">From the classroom<br/>to <em>systemic change.</em></h2>
+    <div class="section-divider fade-up"></div>
+    <p class="fade-up" style="max-width:680px; color:var(--gray); line-height:1.85; margin-bottom:56px; font-size:0.97rem;">
+      Early childhood education is a policy issue. The affordability crisis, the workforce shortage, the wage gap — none of it is accidental, and none of it gets better without advocates who understand the system from the inside. As a practising RECE, I experience these realities every day. That proximity gives me both the motivation and the credibility to contribute meaningfully to policy work.
+    </p>
+    <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:600; color:var(--dark); margin-bottom:24px;">Sector Knowledge</h3>
+    <div class="policy-grid fade-up">
+      <div class="policy-block">
+        <h3>CWELCC System</h3>
+        <p class="policy-sub">Canada-Wide Early Learning &amp; Child Care</p>
+        <p>I understand the CWELCC system's goals around affordability, access, and quality, and I've seen firsthand how fee reductions have impacted family participation. I also understand the gaps in implementation — particularly for underserved and racialized communities.</p>
+      </div>
+      <div class="policy-block">
+        <h3>ECE Workforce Crisis</h3>
+        <p class="policy-sub">Staffing, wages &amp; retention</p>
+        <p>Staff shortages, high turnover, and wage stagnation are not abstract statistics to me — they describe the daily reality of my workplace. I know why educators leave, and I believe retaining quality ECE professionals starts with policy that treats this as a skilled profession.</p>
+      </div>
+      <div class="policy-block">
+        <h3>Ontario Pedagogy Frameworks</h3>
+        <p class="policy-sub">HDLH · ELECT · AQI Standards</p>
+        <p>I apply these frameworks in daily practice and use them to advocate for quality programming within my centres. These aren't abstract documents — they're the language of our sector, and I'm fluent in them.</p>
+      </div>
+      <div class="policy-block">
+        <h3>Legislative Context</h3>
+        <p class="policy-sub">Bill 10 &amp; sector accountability</p>
+        <p>I have a foundational understanding of Bill 10 and its role in shaping accountability and transparency in Ontario's child care sector, developed through both formal study and ongoing professional engagement.</p>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:600; color:var(--dark); margin: 60px 0 24px;">Advocacy in Action</h3>
+    <div class="advocacy-actions">
+      <div class="action-item fade-up">
+        <div class="action-num">1</div>
+        <div class="action-text">
+          <strong>Wage Equity Rallies</strong>
+          <p>Attended RECE wage equity rallies alongside sector peers, advocating for fair compensation and improved working conditions for Ontario's early childhood workforce.</p>
+        </div>
+      </div>
+      <div class="action-item fade-up fade-up-delay-1">
+        <div class="action-num">2</div>
+        <div class="action-text">
+          <strong>Formal Advocacy Writing</strong>
+          <p>Drafted a written submission to a federal immigration minister, translating lived experience and sector knowledge into a structured, purposeful policy communication.</p>
+        </div>
+      </div>
+      <div class="action-item fade-up fade-up-delay-2">
+        <div class="action-num">3</div>
+        <div class="action-text">
+          <strong>Internal Policy Development</strong>
+          <p>Contributed to program standards review at multiple centres, advocating for updated, equity-aligned approaches grounded in current best practice (HDLH, ELECT, AQI).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pull-quote fade-up">
+      <blockquote>"Every observation I write, every program standard I help update, every conversation I have with a family navigating the system is a small act of policy in practice. I want to do that work at scale."</blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMMUNICATIONS ─────────────────────────────────────────────────────── -->
+<section id="communications" class="bg-teal-pale">
+  <div class="section-inner">
+    <p class="section-label fade-up">Communications &amp; Content Creation</p>
+    <h2 class="section-title fade-up">Saying the right thing<br/>to the <em>right people.</em></h2>
+    <div class="section-divider fade-up"></div>
+    <p class="fade-up" style="max-width:680px; color:var(--gray); line-height:1.85; margin-bottom:56px; font-size:0.97rem;">
+      Good communications work isn't about producing a lot of content — it's about producing the right content, in the right voice, for the right audience. Whether I'm writing a parent handout, designing a Canva poster, or drafting a reflective post for LinkedIn, I ask the same questions: Who is this for? What do they need to know? How do I say it clearly and with care?
+    </p>
+    <div class="comms-grid">
+      <div class="comms-card fade-up">
+        <div class="comms-icon">✍️</div>
+        <h3>Writing</h3>
+        <p class="sub">Blogs · Newsletters · Reports</p>
+        <p>I maintain an ECE-focused blog writing about children's development, emotional well-being, inclusive practice, and reflections from my classroom. Aimed at educators, families, and sector stakeholders — I prioritize clarity and accessibility over academic language.</p>
+        <p>I also produce written documentation as a core RECE responsibility: developmental records, program plans, family communications, and centre-level reports — all sharpening my ability to translate complex ideas into clear, purposeful language.</p>
+      </div>
+      <div class="comms-card fade-up fade-up-delay-1">
+        <div class="comms-icon">🎨</div>
+        <h3>Visual Design — Canva</h3>
+        <p class="sub">Posters · Newsletters · Social Graphics</p>
+        <p>I use Canva to create educational materials and event communications. At Winchester, I produced a parent-facing poster and newsletter-style handout for a community sensory event — designing both to be visually accessible, culturally neutral, and easy to read at a glance.</p>
+        <p>Comfortable creating: event flyers, newsletter layouts, social media graphics, and informational handouts for families.</p>
+      </div>
+      <div class="comms-card fade-up fade-up-delay-2">
+        <div class="comms-icon">💼</div>
+        <h3>Social Media — LinkedIn</h3>
+        <p class="sub">Professional presence &amp; content strategy</p>
+        <p>I manage a professional LinkedIn presence focused on ECE practice, child development, and sector advocacy — publishing posts connecting theory to practice and engaging with the broader ECE community.</p>
+        <p>My follower base has grown 5% through consistent, values-aligned content. This portfolio is itself part of my communications practice: a curated representation of who I am as a professional.</p>
+      </div>
+      <div class="comms-card fade-up fade-up-delay-3">
+        <div class="comms-icon">🎙️</div>
+        <h3>Public Speaking &amp; Podcasting</h3>
+        <p class="sub">Building this skill</p>
+        <p>I communicate regularly with families, present to staff teams, and facilitate group activities — building a strong foundation in verbal communication and making information accessible to diverse audiences.</p>
+        <p>I'm actively developing public speaking and audio content skills, and I'm eager to contribute to podcast production and member-facing communications formats.</p>
+        <span class="building-badge">In Development</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EQUITY ─────────────────────────────────────────────────────────────── -->
+<section id="equity" class="bg-white">
+  <div class="section-inner">
+    <p class="section-label fade-up">Equity &amp; Anti-Oppression</p>
+    <h2 class="section-title fade-up">Not a module.<br/><em>A way of working.</em></h2>
+    <div class="section-divider fade-up"></div>
+    <div class="equity-intro fade-up">
+      <p>Equity work isn't something I completed — it's the lens I use every day. The families I work with are predominantly from racialized, newcomer, and multilingual communities. The children in my classrooms carry identities, languages, and lived experiences that the mainstream ECE system was not originally designed to centre. My job is to make sure that changes in my room, and to contribute to changing it more broadly.</p>
+      <p>I have spent my entire career in Toronto childcare centres serving primarily racialized, newcomer, and equity-deserving communities. This isn't incidental — it's central to who I am as a practitioner.</p>
+    </div>
+
+    <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:600; color:var(--dark); margin-bottom:24px;">My Framework</h3>
+    <div class="framework-grid">
+      <div class="framework-item fade-up">
+        <h4>Anti-Racist Practice</h4>
+        <p>Completed formal anti-racism training. Applied through materials selection, classroom conversations, environmental design, and ongoing self-reflection.</p>
+      </div>
+      <div class="framework-item fade-up fade-up-delay-1">
+        <h4>Trauma-Informed Approaches</h4>
+        <p>Completed trauma-informed practice training. Use this lens to understand children's behaviour, support self-regulation, and engage sensitively with families navigating significant stressors.</p>
+      </div>
+      <div class="framework-item fade-up fade-up-delay-2">
+        <h4>Cultural Responsiveness</h4>
+        <p>Actively integrate diverse representation into curriculum, honour different family structures, and approach every caregiver conversation with humility, curiosity, and respect.</p>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:600; color:var(--dark); margin: 56px 0 24px;">In My Classroom</h3>
+    <div class="practice-list">
+      <div class="practice-item fade-up">
+        <span class="practice-dot">🌱</span>
+        <p>Ensure all program plans align with AQI equity expectations and reflect the specific cultural backgrounds and developmental profiles of children in my group.</p>
+      </div>
+      <div class="practice-item fade-up fade-up-delay-1">
+        <span class="practice-dot">🧘</span>
+        <p>Introduced a self-regulation program at St. Mark's using yoga, breathing, and calming routines — designed to support children whose emotional regulation needs weren't being met by traditional classroom management approaches.</p>
+      </div>
+      <div class="practice-item fade-up fade-up-delay-2">
+        <span class="practice-dot">👨‍👩‍👧</span>
+        <p>Worked with newcomer families at Wee Leprechauns to co-develop children's learning goals — recognizing that their expertise in their child's development is equal to my professional knowledge.</p>
+      </div>
+      <div class="practice-item fade-up fade-up-delay-3">
+        <span class="practice-dot">🔍</span>
+        <p>Regularly reflect on my own positionality and its impact on practice — examining how my background, training, and assumptions shape what I notice, what I prioritize, and who I centre.</p>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:600; color:var(--dark); margin: 48px 0 20px;">Training &amp; Commitments</h3>
+    <div class="training-pills">
+      <span class="pill">Anti-Racism Training</span>
+      <span class="pill">Trauma-Informed Practice</span>
+      <span class="pill">HDLH &amp; ELECT Frameworks</span>
+      <span class="pill">AQI Standards</span>
+      <span class="pill">Culturally Responsive Curriculum</span>
+      <span class="pill">Anti-Oppressive Frameworks</span>
+      <span class="pill">Care Ethics</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ─────────────────────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="section-inner">
+    <p class="section-label">Get in Touch</p>
+    <div class="contact-grid">
+      <div class="contact-text">
+        <h2 class="section-title">Let's connect.</h2>
+        <p>Whether you're a fellow ECE professional, a community partner, or someone interested in connecting around early childhood policy and advocacy — I'd love to hear from you.</p>
+        <div class="contact-links">
+          <a href="mailto:ravijasdave14@gmail.com" class="contact-link">
+            <span class="icon">✉️</span> ravijasdave14@gmail.com
+          </a>
+          <a href="https://linkedin.com/in/ravija-dave" target="_blank" class="contact-link">
+            <span class="icon">💼</span> LinkedIn: Ravija Dave
+          </a>
+          <a href="tel:+16474507761" class="contact-link">
+            <span class="icon">📞</span> +1 647-450-7761
+          </a>
+          <span class="contact-link">
+            <span class="icon">📍</span> Toronto, ON, Canada
+          </span>
+        </div>
+      </div>
+      <div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <input type="text"  placeholder="Your name"  required />
+            <input type="email" placeholder="Your email" required />
+          </div>
+          <input type="text" placeholder="Subject" />
+          <textarea placeholder="Your message…" required></textarea>
+          <button type="submit" class="btn-send">Send Message</button>
+          <div class="form-success" id="formSuccess">
+            ✓ Thank you! I'll be in touch soon.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer>
+  <span><strong>Ravija Dave</strong> &nbsp;·&nbsp; RECE &nbsp;·&nbsp; Toronto, ON &nbsp;·&nbsp; © 2025</span>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#community">Community</a>
+    <a href="#policy">Policy</a>
+    <a href="#communications">Communications</a>
+    <a href="#equity">Equity</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+// ── NAV SCROLL ────────────────────────────────────────────────────────────
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// ── HAMBURGER ────────────────────────────────────────────────────────────
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.toggle('open');
+});
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+}
+
+// ── FADE-UP ON SCROLL ────────────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ── CONTACT FORM ─────────────────────────────────────────────────────────
+document.getElementById('contactForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  document.getElementById('formSuccess').style.display = 'block';
+  e.target.reset();
+});
+
+// ── ACTIVE NAV HIGHLIGHT ─────────────────────────────────────────────────
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--teal)' : '';
+  });
+});
+</script>
+</body>
+</html>
